@@ -92,7 +92,7 @@ export default function Items() {
 
     const payload = {
       ...form,
-      category_id: Number(form.category_id),
+      category_id: form.category_id,
       stock: Number(form.stock),
       price: Number(form.price),
     }
