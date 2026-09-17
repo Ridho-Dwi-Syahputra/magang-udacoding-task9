@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Grid, Plus, Edit2, Trash2 } from 'lucide-react'
 import axiosClient, { pesanError } from '../api/axiosClient'
 import Modal from '../components/Modal'
 
@@ -87,13 +88,17 @@ export default function Categories() {
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-slate-900">Kategori</h1>
+          <h1 className="flex items-center gap-2 text-lg font-bold text-slate-900">
+            <Grid className="h-5 w-5 text-indigo-600" />
+            Kategori
+          </h1>
           <p className="mt-0.5 text-sm text-slate-500">{data.length} kategori terdaftar</p>
         </div>
         <button
           onClick={bukaTambah}
-          className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700"
+          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700"
         >
+          <Plus className="h-4 w-4" />
           Tambah kategori
         </button>
       </div>
@@ -131,14 +136,16 @@ export default function Categories() {
               <div className="mt-4 flex gap-2">
                 <button
                   onClick={() => bukaEdit(k)}
-                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition-all hover:border-indigo-300 hover:text-indigo-600"
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition-all hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600"
                 >
+                  <Edit2 className="h-3.5 w-3.5" />
                   Edit
                 </button>
                 <button
                   onClick={() => hapus(k)}
-                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition-all hover:border-rose-300 hover:text-rose-600"
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition-all hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600"
                 >
+                  <Trash2 className="h-3.5 w-3.5" />
                   Hapus
                 </button>
               </div>

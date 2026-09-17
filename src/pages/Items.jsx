@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Box, Plus, Search, Edit2, Trash2 } from 'lucide-react'
 import axiosClient, { pesanError } from '../api/axiosClient'
 import Modal from '../components/Modal'
 
@@ -131,28 +132,35 @@ export default function Items() {
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-slate-900">Daftar Barang</h1>
+          <h1 className="flex items-center gap-2 text-lg font-bold text-slate-900">
+            <Box className="h-5 w-5 text-indigo-600" />
+            Daftar Barang
+          </h1>
           <p className="mt-0.5 text-sm text-slate-500">{meta.total} barang terdaftar</p>
         </div>
         <button
           onClick={bukaTambah}
           disabled={kategori.length === 0}
-          className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-700 disabled:opacity-50"
         >
+          <Plus className="h-4 w-4" />
           Tambah barang
         </button>
       </div>
 
       <div className="mb-5 flex flex-wrap gap-3">
-        <input
-          value={cari}
-          onChange={(e) => {
-            setCari(e.target.value)
-            setHalaman(1)
-          }}
-          placeholder="Cari nama atau SKU..."
-          className="min-w-52 flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none transition-all focus:border-indigo-400"
-        />
+        <div className="relative min-w-52 flex-1">
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <input
+            value={cari}
+            onChange={(e) => {
+              setCari(e.target.value)
+              setHalaman(1)
+            }}
+            placeholder="Cari nama atau SKU..."
+            className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-indigo-400"
+          />
+        </div>
         <select
           value={filterKategori}
           onChange={(e) => {
@@ -219,14 +227,16 @@ export default function Items() {
                       <div className="flex justify-end gap-1.5">
                         <button
                           onClick={() => bukaEdit(item)}
-                          className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-500 transition-all hover:bg-indigo-50 hover:text-indigo-600"
+                          className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-500 transition-all hover:bg-indigo-50 hover:text-indigo-600"
                         >
+                          <Edit2 className="h-3.5 w-3.5" />
                           Edit
                         </button>
                         <button
                           onClick={() => hapus(item)}
-                          className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-500 transition-all hover:bg-rose-50 hover:text-rose-600"
+                          className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-500 transition-all hover:bg-rose-50 hover:text-rose-600"
                         >
+                          <Trash2 className="h-3.5 w-3.5" />
                           Hapus
                         </button>
                       </div>
