@@ -34,12 +34,12 @@ axiosClient.interceptors.response.use(
 
 // Laravel balikin error validasi dalam bentuk { message, errors: { field: [pesan] } }.
 // Fungsi ini yang bikin komponen cukup nampilin satu string.
-export function pesanError(error, fallback = 'Ada yang salah, coba lagi.') {
+export function pesanError(error, fallback = 'Terjadi kesalahan sistem, silakan coba beberapa saat lagi.') {
   const data = error.response?.data
 
   if (data?.errors) return Object.values(data.errors).flat().join(' ')
   if (data?.message) return data.message
-  if (error.code === 'ERR_NETWORK') return 'Nggak bisa nyambung ke server. Pastikan Laravel-nya jalan.'
+  if (error.code === 'ERR_NETWORK') return 'Gagal terhubung ke server. Pastikan koneksi dan server backend sedang aktif.'
 
   return fallback
 }

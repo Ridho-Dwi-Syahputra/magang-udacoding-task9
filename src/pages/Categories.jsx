@@ -23,7 +23,7 @@ export default function Categories() {
       const { data: res } = await axiosClient.get('/categories')
       setData(res.data)
     } catch (err) {
-      setError(pesanError(err, 'Gagal memuat kategori.'))
+      setError(pesanError(err, 'Gagal memuat data kategori.'))
     } finally {
       setLoading(false)
     }
@@ -62,21 +62,21 @@ export default function Categories() {
       setBuka(false)
       muat()
     } catch (err) {
-      setErrorForm(pesanError(err, 'Gagal menyimpan kategori.'))
+      setErrorForm(pesanError(err, 'Gagal menyimpan data kategori.'))
     } finally {
       setSimpan(false)
     }
   }
 
   async function hapus(kategori) {
-    if (!confirm(`Hapus kategori "${kategori.name}"?`)) return
+    if (!confirm(`Apakah Anda yakin ingin menghapus kategori "${kategori.name}"?`)) return
 
     try {
       await axiosClient.delete(`/categories/${kategori.id}`)
       muat()
     } catch (err) {
       // Server balikin 409 kalau kategorinya masih dipakai barang
-      alert(pesanError(err, 'Gagal menghapus kategori.'))
+      alert(pesanError(err, 'Gagal menghapus data kategori.'))
     }
   }
 

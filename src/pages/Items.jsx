@@ -45,7 +45,7 @@ export default function Items() {
       setItems(data.data)
       setMeta(data.meta)
     } catch (err) {
-      setError(pesanError(err, 'Gagal memuat barang.'))
+      setError(pesanError(err, 'Gagal memuat data barang.'))
     } finally {
       setLoading(false)
     }
@@ -107,20 +107,20 @@ export default function Items() {
       setBuka(false)
       muat()
     } catch (err) {
-      setErrorForm(pesanError(err, 'Gagal menyimpan barang.'))
+      setErrorForm(pesanError(err, 'Gagal menyimpan data barang.'))
     } finally {
       setSimpan(false)
     }
   }
 
   async function hapus(item) {
-    if (!confirm(`Hapus "${item.name}" dari inventaris?`)) return
+    if (!confirm(`Apakah Anda yakin ingin menghapus barang "${item.name}" dari sistem?`)) return
 
     try {
       await axiosClient.delete(`/items/${item.id}`)
       muat()
     } catch (err) {
-      alert(pesanError(err, 'Gagal menghapus barang.'))
+      alert(pesanError(err, 'Gagal menghapus data barang.'))
     }
   }
 
@@ -131,8 +131,8 @@ export default function Items() {
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-slate-900">Barang</h1>
-          <p className="mt-0.5 text-sm text-slate-500">{meta.total} barang di gudang</p>
+          <h1 className="text-lg font-bold text-slate-900">Daftar Barang</h1>
+          <p className="mt-0.5 text-sm text-slate-500">{meta.total} barang terdaftar</p>
         </div>
         <button
           onClick={bukaTambah}
