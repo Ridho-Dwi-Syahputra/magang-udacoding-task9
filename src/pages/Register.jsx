@@ -39,7 +39,7 @@ export default function Register() {
       return
     }
 
-    navigate('/items', { replace: true })
+    navigate('/login', { replace: true })
   }
 
   const inputClass =

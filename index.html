@@ -10,6 +10,18 @@
     <title>Inventaris</title>
   </head>
   <body>
+    <script>
+      const origError = console.error;
+      console.error = function(...args) {
+        origError.apply(console, args);
+        if (args[0] && args[0].includes && (args[0].includes('React') || args[0].includes('Error'))) {
+           document.body.innerHTML += '<div style="color:red;padding:20px;z-index:9999;position:absolute;top:0;left:0;background:white;width:100%;"><h1 style="font-size:24px;font-weight:bold;">Terdapat Error Code:</h1><pre style="white-space:pre-wrap;">' + args.map(a => typeof a === 'object' && a.stack ? a.stack : String(a)).join('\n') + '</pre></div>';
+        }
+      };
+      window.addEventListener('error', function(e) {
+        document.body.innerHTML += '<div style="color:red;padding:20px;z-index:9999;position:absolute;top:0;left:0;background:white;width:100%;"><h1 style="font-size:24px;font-weight:bold;">Terdapat Error Code:</h1><pre style="white-space:pre-wrap;">' + e.message + '\n' + e.filename + ':' + e.lineno + '</pre></div>';
+      });
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

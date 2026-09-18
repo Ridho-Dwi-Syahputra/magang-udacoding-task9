@@ -65,8 +65,7 @@ export function AuthProvider({ children }) {
 
   async function register(form) {
     try {
-      const { data } = await axiosClient.post('/register', form)
-      simpanSesi(data)
+      await axiosClient.post('/register', form)
       return { ok: true }
     } catch (error) {
       return { ok: false, pesan: pesanError(error, 'Registrasi gagal.') }
