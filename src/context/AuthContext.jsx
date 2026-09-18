@@ -27,7 +27,13 @@ export function AuthProvider({ children }) {
         setUser(data.user)
         localStorage.setItem(USER_KEY, JSON.stringify(data.user))
       })
-      .catch(() => bersihkan())
+      .catch((error) => {
+        // Cuma bersihin sesi kalau server EMANG bilang tokennya nggak valid.
+        // Kalau gagalnya gara-gara jaringan/timeout (server lagi lambat atau
+        // sempat nggak nyala), sesi lokal dibiarin -- request halaman berikutnya
+        // masih boleh dicoba, bukan langsung dianggap harus login ulang.
+        if (error.response?.status === 401) bersihkan()
+      })
       .finally(() => setCekSelesai(true))
     // Sengaja cuma jalan sekali waktu aplikasi dibuka
     // eslint-disable-next-line react-hooks/exhaustive-deps

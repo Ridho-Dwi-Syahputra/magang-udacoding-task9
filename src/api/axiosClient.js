@@ -4,6 +4,11 @@ export const TOKEN_KEY = 'inventaris-token'
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+  // Backend gratis (Render dkk) bisa "tidur" dan butuh puluhan detik buat
+  // bangun pas request pertama. Tanpa timeout, request nyangkut tanpa batas
+  // kalau server-nya beneran nggak nyala -- 30 detik cukup buat nutup cold
+  // start yang wajar, tapi tetap kasih kepastian kalau server memang mati.
+  timeout: 30_000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -40,6 +45,7 @@ export function pesanError(error, fallback = 'Terjadi kesalahan sistem, silakan 
   if (data?.errors) return Object.values(data.errors).flat().join(' ')
   if (data?.message) return data.message
   if (error.code === 'ERR_NETWORK') return 'Gagal terhubung ke server. Pastikan koneksi dan server backend sedang aktif.'
+  if (error.code === 'ECONNABORTED') return 'Server kelamaan merespons. Kalau backend-nya baru "bangun tidur" (misal Render gratis), coba lagi sebentar.'
 
   return fallback
 }
