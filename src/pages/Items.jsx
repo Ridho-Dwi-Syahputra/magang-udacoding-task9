@@ -3,7 +3,7 @@ import { Box, Plus, Search, Edit2, Trash2 } from 'lucide-react'
 import axiosClient, { pesanError } from '../api/axiosClient'
 import Modal from '../components/Modal'
 
-const kosong = { category_id: '', name: '', sku: '', description: '', stock: 0, price: 0 }
+const kosong = { category_id: '', name: '', description: '', stock: 0, price: 0 }
 
 function rupiah(angka) {
   return new Intl.NumberFormat('id-ID', {
@@ -77,7 +77,6 @@ export default function Items() {
     setForm({
       category_id: item.category_id,
       name: item.name,
-      sku: item.sku,
       description: item.description || '',
       stock: item.stock,
       price: item.price,
@@ -157,7 +156,7 @@ export default function Items() {
               setCari(e.target.value)
               setHalaman(1)
             }}
-            placeholder="Cari nama atau SKU..."
+            placeholder="Cari nama barang..."
             className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-indigo-400"
           />
         </div>
@@ -208,13 +207,13 @@ export default function Items() {
                   <tr key={item.id} className="border-b border-slate-50 transition-all hover:bg-slate-50">
                     <td className="px-5 py-3.5">
                       <p className="font-medium text-slate-900">{item.name}</p>
-                      <p className="text-xs text-slate-400">{item.sku}</p>
                     </td>
                     <td className="px-5 py-3.5 text-slate-600">{item.category?.name}</td>
                     <td className="px-5 py-3.5 text-right">
                       <span
-                        className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${item.stock < 10 ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600'
-                          }`}
+                        className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${
+                          item.stock < 10 ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600'
+                        }`}
                       >
                         {item.stock}
                       </span>
@@ -297,17 +296,6 @@ export default function Items() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="sku-barang" className="mb-1.5 block text-xs font-medium text-slate-600">SKU</label>
-            <input
-              id="sku-barang"
-              value={form.sku}
-              onChange={(e) => setForm({ ...form, sku: e.target.value })}
-              className={inputClass}
-              placeholder="SMB-009"
             />
           </div>
 
